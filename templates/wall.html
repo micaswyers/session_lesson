@@ -1,0 +1,14 @@
+{% extends 'master.html' %}
+    {% block body %}
+        {% for post in wall_posts %}
+            <div class="post">
+                <li>{{ author_id }}</li>
+                <li>{{ created_at }}</li>
+                <li>{{ content }}</li>
+            </div>
+        {% endfor %}
+<!--    {% for message in get_flashed_messages() %}
+            <li>{{ message }}</li>
+        {% endfor %} -->
+
+    {% endblock %}
