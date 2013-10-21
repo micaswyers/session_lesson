@@ -16,7 +16,7 @@ def authenticate(username, password):
     query = """SELECT * FROM users WHERE username = ?"""
     DB.execute(query, (username, ))
     row = DB.fetchone()
-    if hash(password) == row[2]:
+    if password == row[2]:
         return row[1]
 
 def get_user_by_name(username):
