@@ -11,7 +11,8 @@ app.secret_key = "shhhhthisisasecret"
 @app.route("/")
 def index():
     if session.get('username'):
-        return "Yay, it worked!"
+        username = session.get('username')
+        return redirect(url_for("view_user", username=username))
     else:
         return render_template('index.html')
 
