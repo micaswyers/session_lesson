@@ -18,9 +18,8 @@ def index():
 @app.route("/user/<username>")
 def view_user(username):
     owner_id = model.get_user_by_name(username)
-    print owner_id
     user_wall_posts = model.get_wall_posts(owner_id)
-    print user_wall_posts
+    # authors = model.get_author(owner_id)
     return render_template("wall.html", posts=user_wall_posts)
 
 @app.route("/clear")

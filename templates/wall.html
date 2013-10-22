@@ -1,14 +1,12 @@
 {% extends 'master.html' %}
     {% block body %}
+
         {% for post in posts %}
-            <ul>
-                <li>Written by: {{ post[2] }}</li>
-                <li>Date: {{ post[3] }}</li>
-                <li>Content: {{ post[4]}}</li>
-            </ul>
+        <ul>
+            <li>Written by: {{ post['username'] }}</li>            
+            <li>Date: {{ post['date'] }}</li>
+            <li>Content: {{ post['content']}}</li>
+        </ul>
         {% endfor %}
-<!--    {% for message in get_flashed_messages() %}
-            <li>{{ message }}</li>
-        {% endfor %} -->
 
     {% endblock %}

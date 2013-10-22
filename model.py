@@ -28,8 +28,25 @@ def get_user_by_name(username):
 
 def get_wall_posts(owner_id):
     connect_to_db()
-    query = """SELECT * FROM wall_posts WHERE owner_id = ?"""
+    query = """SELECT wp.id, wp.author_id, u.username, wp.content, wp.created_at FROM wall_posts as wp INNER JOIN users as u on (wp.author_id = u.id) WHERE owner_id = ?"""
     DB.execute(query, (owner_id, ))
+    rows = DB.fetchall()
+    output = []
+    for row in rows:
+        row_d = {"username": row[2],
+                 "content": row[3],
+                 "date": row[4] }
+        output.append(row_d)
+    print rows
+
+    # list comprehension
+    # output = [ {"username": row[2], "content": row[3], "date": row[4]} for row in rows ]
+    return output
+
+def get_author(author_id):
+    connect_to_db()
+    query = """SELECT * FROM users INNER JOIN wall_posts ON (users.id = wall_posts.author_id) = ?"""
+    DB.execute(query, (author_id, ))
     rows = DB.fetchall()
     print rows
     return rows
