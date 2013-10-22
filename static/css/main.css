@@ -14,3 +14,12 @@ form.signin input.form-control {
 form.signin input.btn {
     margin-top: 15px;
 }
+
+#posts {
+    font: 20px/35px "Arial";
+    background-color: #fff;
+    margin: 10px;
+    padding: 10px;
+    width: 500px;
+    border: 1px dashed #333;
+}

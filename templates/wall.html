@@ -1,12 +1,12 @@
 {% extends 'master.html' %}
     {% block body %}
-
         {% for post in posts %}
-        <ul>
-            <li>Written by: {{ post['username'] }}</li>            
-            <li>Date: {{ post['date'] }}</li>
-            <li>Content: {{ post['content']}}</li>
-        </ul>
+        <div id="posts">
+            <ul>
+                <li>Written by: {{ post['username'] }}</li>            
+                <li>Date: {{ post['date'] }}</li>
+                <li>Content: {{ post['content']}}</li>
+            </ul>
+        </div>
         {% endfor %}
-
     {% endblock %}
