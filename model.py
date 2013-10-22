@@ -42,11 +42,3 @@ def get_wall_posts(owner_id):
     # list comprehension
     # output = [ {"username": row[2], "content": row[3], "date": row[4]} for row in rows ]
     return output
-
-def get_author(author_id):
-    connect_to_db()
-    query = """SELECT * FROM users INNER JOIN wall_posts ON (users.id = wall_posts.author_id) = ?"""
-    DB.execute(query, (author_id, ))
-    rows = DB.fetchall()
-    print rows
-    return rows

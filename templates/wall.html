@@ -11,11 +11,8 @@
         {% endfor %}
 
         <br />
-
-   {% if session.logged_in %}
-        <form action="{{ url_for("view_user") }}" method="POST">
-            <input type="text" class="form-control" name="text">
-            <input type="submit" class="btn btn-lg btn-primary btn-block" value="Submit">
-        </form>
+        
+        {% if logged_in %}
+            {{ logged_in }}
         {% endif %}
     {% endblock %}

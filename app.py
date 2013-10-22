@@ -20,8 +20,9 @@ def index():
 def view_user(username):
     owner_id = model.get_user_by_name(username)
     user_wall_posts = model.get_wall_posts(owner_id)
-    # authors = model.get_author(owner_id)
-    return render_template("wall.html", posts=user_wall_posts)
+    logged_in = session.get('username') #logged_in should be equal to a username
+    print logged_in
+    return render_template("wall.html", posts=user_wall_posts, logged_in=logged_in)
 
 @app.route("/clear")
 def clear():
