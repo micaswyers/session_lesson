@@ -20,13 +20,16 @@ def authenticate(username, password):
         return row[1]
 
 def get_user_by_name(username):
+    connect_to_db()
     query = """SELECT * FROM users WHERE username = ?"""
     DB.execute(query, (username, ))
-    rows = DB.fetchall()
-    return rows[0]
+    row = DB.fetchone()
+    return row[0]
 
-def get_wall_posts(user_id):
-    query = """SELECT * FROM wall_posts WHERE id = ?"""
-    DB.execute(query, (user_id, ))
+def get_wall_posts(owner_id):
+    connect_to_db()
+    query = """SELECT * FROM wall_posts WHERE owner_id = ?"""
+    DB.execute(query, (owner_id, ))
     rows = DB.fetchall()
+    print rows
     return rows
