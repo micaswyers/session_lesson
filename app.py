@@ -28,12 +28,12 @@ def view_user(username):
 
 @app.route("/user/<username>", methods=["POST"])
 def post_to_wall(username):
-    owner_id = model.get_user_by_name(username)
+    post_author = session.get('username')
+    post_author_id = model.get_user_by_name(post_author)
     content = request.form.get('wall_posts')
     created_at = datetime.datetime.now()
-    author_name = session.get('logged_in')
-    author_id = model.get_user_by_name(author_name)
-    model.post_to_wall(owner_id, author_id, created_at, content)
+    wall_owner_id = model.get_user_by_name(username)
+    model.post_to_wall(wall_owner_id, post_author_id, created_at, content)
     return redirect(url_for("view_user", username=username))
 
 # handler two

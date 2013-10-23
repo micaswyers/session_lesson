@@ -21,7 +21,7 @@ def authenticate(username, password):
 
 def get_user_by_name(username):
     connect_to_db()
-    query = """SELECT * FROM users WHERE username = ?"""
+    query = """SELECT id FROM users WHERE username = ?"""
     DB.execute(query, (username, ))
     row = DB.fetchone()
     return row[0]
