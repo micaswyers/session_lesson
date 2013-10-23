@@ -1,6 +1,7 @@
 from flask import Flask, render_template, request, redirect, session, url_for, flash
 import model
 import sqlite3
+import datetime
 
 DB = None
 CONN = None
@@ -8,6 +9,7 @@ CONN = None
 app = Flask(__name__)
 app.secret_key = "shhhhthisisasecret"
 
+# handler one
 @app.route("/")
 def index():
     if session.get('username'):
@@ -24,12 +26,9 @@ def view_user(username):
     print logged_in
     return render_template("wall.html", posts=user_wall_posts, logged_in=logged_in)
 
-@app.route("/clear")
-def clear():
-    session.clear()
-    return redirect(url_for("index"))
 
-@app.route("/", methods=["POST"])
+# handler two
+@app.route("/", methods=["POST"]) 
 def process_login():
     username = request.form.get("username")
     password = request.form.get("password")
@@ -43,6 +42,23 @@ def process_login():
     else:
         flash("Password incorrect, there may be a ferret stampede in progress!")
     return redirect(url_for("index"))
+
+
+@app.route("/clear")
+def clear():
+    session.clear()
+    return redirect(url_for("index"))
+
+@app.route("/post_to_wall", methods=["POST"])
+def post_to_wall():
+    username = session.get('username')
+    print "THIS IS THE USERNAME", username
+    user_id = model.get_user_by_name(username)
+    content = request.form.get('wall_posts')
+    created_at = datetime.datetime.now()
+    author_name = session.get('username')
+    author_id = model.get_user_by_name(author_name)
+    model.post_to_wall(user_id, author_id, created_at, content)
 
 @app.route("/register")
 def register():

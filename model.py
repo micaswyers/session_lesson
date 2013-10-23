@@ -42,3 +42,11 @@ def get_wall_posts(owner_id):
     # list comprehension
     # output = [ {"username": row[2], "content": row[3], "date": row[4]} for row in rows ]
     return output
+
+def post_to_wall(owner_id, author_id, created_at, content):
+    connect_to_db()
+    query = """INSERT INTO wall_posts (owner_id, author_id, created_at, content) VALUES (?, ?, ?, ?)"""
+    DB.execute(query, (owner_id, author_id, created_at, content))
+    CONN.commit()
+    print "Posted to wall %s %s %s %s" % (owner_id, author_id, created_at, content)
+    
