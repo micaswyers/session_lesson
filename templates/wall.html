@@ -13,7 +13,7 @@
         <br />
 
         {% if logged_in %}
-            <form class="signin" action="{{ url_for("post_to_wall") }}" method="POST">
+            <form class="signin" action="{{ url_for("post_to_wall", username="username") }}" method="POST">
                 <input type="text" class="form-control" placeholder="Write on wall" name="wall_posts">
                 <input type="submit" class="btn btn-lg btn-primary btn-block" value="Submit">
             </form>

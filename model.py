@@ -49,4 +49,3 @@ def post_to_wall(owner_id, author_id, created_at, content):
     DB.execute(query, (owner_id, author_id, created_at, content))
     CONN.commit()
     print "Posted to wall %s %s %s %s" % (owner_id, author_id, created_at, content)
-    

@@ -24,8 +24,17 @@ def view_user(username):
     user_wall_posts = model.get_wall_posts(owner_id)
     logged_in = session.get('username') #logged_in should be equal to a username
     print logged_in
-    return render_template("wall.html", posts=user_wall_posts, logged_in=logged_in)
+    return render_template("wall.html", posts=user_wall_posts, logged_in=logged_in, username=username)
 
+@app.route("/user/<username>", methods=["POST"])
+def post_to_wall(username):
+    owner_id = model.get_user_by_name(username)
+    content = request.form.get('wall_posts')
+    created_at = datetime.datetime.now()
+    author_name = session.get('logged_in')
+    author_id = model.get_user_by_name(author_name)
+    model.post_to_wall(owner_id, author_id, created_at, content)
+    return redirect(url_for("view_user", username=username))
 
 # handler two
 @app.route("/", methods=["POST"]) 
@@ -48,17 +57,6 @@ def process_login():
 def clear():
     session.clear()
     return redirect(url_for("index"))
-
-@app.route("/post_to_wall", methods=["POST"])
-def post_to_wall():
-    username = session.get('username')
-    print "THIS IS THE USERNAME", username
-    user_id = model.get_user_by_name(username)
-    content = request.form.get('wall_posts')
-    created_at = datetime.datetime.now()
-    author_name = session.get('username')
-    author_id = model.get_user_by_name(author_name)
-    model.post_to_wall(user_id, author_id, created_at, content)
 
 @app.route("/register")
 def register():
