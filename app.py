@@ -66,5 +66,27 @@ def register():
     else:
         return render_template("register.html")
 
+@app.route("/create_account", methods=["POST"])
+def add_new_user():
+    if session.get("username"):
+        username = session.get("username")
+        return redirect(url_for("view_user", username=username))
+    else:
+        new_username = request.form.get("username")
+        password = request.form.get("password")
+        password2 = request.form.get("password_verify")
+
+        if password != password2:
+            flash("Your passwords don't match! Try again.")
+        else:
+            if model.get_user_by_name(new_username):
+                flash("Your account already exists.") 
+            else:
+                model.create_account(new_username, password)
+                flash("You've been added! Please sign-in below!")
+            # return redirect(url_for("index"))
+        return redirect(url_for("index"))
+               
+
 if __name__ == "__main__":
     app.run(debug = True)

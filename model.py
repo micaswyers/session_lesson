@@ -24,7 +24,10 @@ def get_user_by_name(username):
     query = """SELECT id FROM users WHERE username = ?"""
     DB.execute(query, (username, ))
     row = DB.fetchone()
-    return row[0]
+    if row:
+        return row[0]
+    else:
+        return None
 
 def get_wall_posts(owner_id):
     connect_to_db()
@@ -49,3 +52,10 @@ def post_to_wall(owner_id, author_id, created_at, content):
     DB.execute(query, (owner_id, author_id, created_at, content))
     CONN.commit()
     print "Posted to wall %s %s %s %s" % (owner_id, author_id, created_at, content)
+
+def create_account(username, password):
+    connect_to_db()
+    query = """INSERT INTO users (username, password) VALUES (?, ?)"""
+    DB.execute(query, (username, password))
+    CONN.commit()
+    print "Added %s to the users database" % (username)
