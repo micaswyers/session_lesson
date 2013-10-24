@@ -1,10 +1,6 @@
-<html>
-    <head>
-        <title>The Book of Faces</title>
-        <link href="/static/css/bootstrap.css" rel="stylesheet">
-        <link href="/static/css/main.css" rel="stylesheet">
-    </head>
-    <body>
+{% extends 'master.html' %}
+    {% block body %}
+
         <div class="container">
             <form class="signin">
                 <h2 class="signin-heading">Register a new account</h2>
@@ -14,5 +10,4 @@
                 <input type="submit" class="btn btn-lg btn-primary btn-block" value="Submit">
             </form>
         </div>
-    </body>
-</html>
+    {% endblock %}

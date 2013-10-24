@@ -60,7 +60,11 @@ def clear():
 
 @app.route("/register")
 def register():
-    return render_template("register.html")
+    if session.get("username"):
+        username = session.get("username")
+        return redirect(url_for("view_user", username=username))
+    else:
+        return render_template("register.html")
 
 if __name__ == "__main__":
     app.run(debug = True)
